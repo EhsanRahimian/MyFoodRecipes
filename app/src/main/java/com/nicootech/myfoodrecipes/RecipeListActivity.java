@@ -2,17 +2,17 @@ package com.nicootech.myfoodrecipes;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 public class RecipeListActivity extends BaseActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
-
-        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+        Button button = findViewById(R.id.test);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mProgressBar.getVisibility() == View.VISIBLE){
@@ -24,4 +24,5 @@ public class RecipeListActivity extends BaseActivity {
 
 
     }
+
 }
