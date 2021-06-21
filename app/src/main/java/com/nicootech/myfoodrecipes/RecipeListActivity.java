@@ -11,11 +11,14 @@ import com.nicootech.myfoodrecipes.requests.ServiceGenerator;
 import com.nicootech.myfoodrecipes.requests.responses.RecipeResponse;
 import com.nicootech.myfoodrecipes.requests.responses.RecipeSearchResponse;
 import com.nicootech.myfoodrecipes.util.Constants;
+import com.nicootech.myfoodrecipes.viewmodels.RecipeListViewModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,21 +26,35 @@ import retrofit2.Response;
 public class RecipeListActivity extends BaseActivity {
 
     private static final String TAG = "RecipeListActivity";
+
+    private RecipeListViewModel mRecipeListViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
+        //decoration and instantiation of viewModel
+        mRecipeListViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
+
         Button button = findViewById(R.id.test);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testRetrofitRequest();
+                subscribeObservers();
             }
         });
 
-
     }
+
+    private void subscribeObservers(){
+        mRecipeListViewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
+            @Override
+            public void onChanged(List<Recipe> recipes) {
+
+            }
+        });
+    }
+
     private void testRetrofitRequest(){
         RecipeApi recipeApi = ServiceGenerator.getRecipeApi();
 
