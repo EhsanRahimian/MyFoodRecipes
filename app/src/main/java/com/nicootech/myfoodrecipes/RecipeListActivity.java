@@ -35,15 +35,7 @@ public class RecipeListActivity extends BaseActivity {
 
         //decoration and instantiation of viewModel
         mRecipeListViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
-
-        Button button = findViewById(R.id.test);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                subscribeObservers();
-            }
-        });
-
+        subscribeObservers();
     }
 
     private void subscribeObservers(){
