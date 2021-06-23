@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyFoodRecipes</string>
+    <string name="title">title</string>
+    <string name="publisher">publisher</string>
+    <string name="rank">rank</string>
+    <string name="todo">TODO</string>
 </resources>
