@@ -1,6 +1,10 @@
 package com.nicootech.myfoodrecipes;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 
 import com.nicootech.myfoodrecipes.adapters.OnRecipeListener;
@@ -43,6 +47,9 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
             // display search categories
             displaySearchCategories();
         }
+        // Because we used custom toolbar and not default support action bar that
+        // comes with activity we need support that toolbar with support action bar in activity
+        setSupportActionBar(findViewById(R.id.toolbar));
     }
 
     private void subscribeObservers(){
@@ -115,5 +122,20 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         else{
             displaySearchCategories();
         }
+    }
+
+    @Override//it create the menu itself, this method inflates the menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.recipe_serach_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override// it is for handling the clicks to menu item
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.action_categories){
+            displaySearchCategories();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
