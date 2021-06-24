@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 
 public class RecipeListViewModel extends ViewModel {
 
+    private boolean mIsPerformingQuery;
     private boolean mIsViewingRecipes;
     private RecipeRepository mRecipeRepository;
 
@@ -33,5 +34,12 @@ public class RecipeListViewModel extends ViewModel {
 
     public void setIsViewingRecipes(boolean isViewingRecipes){
         mIsViewingRecipes = isViewingRecipes;
+    }
+    public boolean onBackPressed(){
+        if(mIsViewingRecipes){
+            mIsViewingRecipes = false;
+            return false;
+        }
+        return true;
     }
 }
