@@ -6,4 +6,7 @@
     <string name="todo">TODO</string>
     <string name="bbq">BBQ</string>
     <string name="categories">Categories</string>
+    <string name="_100">100</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="some_recipe_title">Some Recipe Title</string>
 </resources>
