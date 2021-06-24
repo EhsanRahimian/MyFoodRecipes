@@ -8,6 +8,7 @@ import com.nicootech.myfoodrecipes.adapters.RecipeRecyclerAdapter;
 import com.nicootech.myfoodrecipes.models.Recipe;
 
 import com.nicootech.myfoodrecipes.util.Testing;
+import com.nicootech.myfoodrecipes.util.VerticalSpacingItemDecorator;
 import com.nicootech.myfoodrecipes.viewmodels.RecipeListViewModel;
 
 import java.util.List;
@@ -60,6 +61,8 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new RecipeRecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(30);
+        mRecyclerView.addItemDecoration(itemDecorator);
     }
 
     private void initSearchView(){
