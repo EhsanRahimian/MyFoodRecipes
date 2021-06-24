@@ -105,4 +105,9 @@ public class RecipeApiClient {
             Log.d(TAG, "cancelRequest: canceling the search request.");
         }
     }
+    public void cancelRequest(){
+        if(mRetrieveRecipeRunnable != null){
+            mRetrieveRecipeRunnable.cancelRequest();
+        }
+    }
 }
