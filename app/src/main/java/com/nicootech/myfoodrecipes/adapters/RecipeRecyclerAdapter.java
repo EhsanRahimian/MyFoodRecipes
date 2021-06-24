@@ -131,6 +131,12 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         else if(mRecipes.get(position).getTitle().equals("LOADING...")){
             return LOADING_TYPE;
         }
+        else if(position == mRecipes.size() - 1
+                && position != 0
+                //&& !mRecipes.get(position).getTitle().equals("EXHAUSTED...") // we use it later
+        ){
+            return LOADING_TYPE;
+        }
         else{
             return RECIPE_TYPE;
         }
