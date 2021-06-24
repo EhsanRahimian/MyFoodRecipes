@@ -1,6 +1,7 @@
 package com.nicootech.myfoodrecipes;
 
 import android.os.Bundle;
+import androidx.appcompat.widget.SearchView;
 
 import com.nicootech.myfoodrecipes.adapters.OnRecipeListener;
 import com.nicootech.myfoodrecipes.adapters.RecipeRecyclerAdapter;
@@ -34,7 +35,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
         initRecyclerView();
         subscribeObservers();
-        testRetrofitRequest();
+        initSearchView();
     }
 
     private void subscribeObservers(){
@@ -57,15 +58,22 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void searchRecipesApi(String query, int pageNumber){
+    private void initSearchView(){
+        final SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-        mRecipeListViewModel.searchRecipesApi(query,pageNumber);
+                mRecipeListViewModel.searchRecipesApi(query,1);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
-
-    private void testRetrofitRequest(){
-        searchRecipesApi("chicken", 1);
-    }
-
 
     @Override
     public void onRecipeClick(int position) {
