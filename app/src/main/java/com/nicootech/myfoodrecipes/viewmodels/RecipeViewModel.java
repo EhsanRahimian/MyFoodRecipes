@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 public class RecipeViewModel extends ViewModel {
 
     private RecipeRepository mRecipeRepository;
+    private String mRecipeId;
 
     public RecipeViewModel() {
         this.mRecipeRepository =RecipeRepository.getInstance();
@@ -19,7 +20,13 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public void searchRecipeById(String recipeId){
+        mRecipeId = recipeId;
         mRecipeRepository.searchRecipeById(recipeId);
+    }
+    // for solving the problem for showing up
+    // the progress bar for second click on recipe item.
+    public String getRecipeId(){
+        return mRecipeId;
     }
 
 }
