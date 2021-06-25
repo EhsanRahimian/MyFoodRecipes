@@ -18,15 +18,16 @@ import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
 import static com.nicootech.myfoodrecipes.util.Constants.NETWORK_TIMEOUT;
 
 public class RecipeApiClient {
 
-    private static RecipeApiClient instance;
+    private static final String TAG = "RecipeApiClient";
 
+    private static RecipeApiClient instance;
     private MutableLiveData<List<Recipe>> mRecipes;
-    private RetrieveRecipeRunnable mRetrieveRecipeRunnable;
+    private RetrieveRecipesRunnable mRetrieveRecipesRunnable;
+
 
     public static RecipeApiClient getInstance(){
         if(instance == null){
@@ -41,12 +42,14 @@ public class RecipeApiClient {
     public LiveData<List<Recipe>> getRecipes(){
         return mRecipes;
     }
-    public void searchRecipeApi(String query, int pageNumber){
+    public void searchRecipesApi(String query, int pageNumber){
 
-        if(mRetrieveRecipeRunnable != null){
-            mRetrieveRecipeRunnable = null;
-        }mRetrieveRecipeRunnable = new RetrieveRecipeRunnable(query,pageNumber);
-        final Future handler = AppExecutors.getInstance().networkIO().submit(mRetrieveRecipeRunnable);
+        if(mRetrieveRecipesRunnable != null){
+            mRetrieveRecipesRunnable = null;
+        }
+        mRetrieveRecipesRunnable = new RetrieveRecipesRunnable(query,pageNumber);
+        final Future handler = AppExecutors.getInstance().networkIO().submit(mRetrieveRecipesRunnable);
+
         AppExecutors.getInstance().networkIO().schedule(new Runnable() {
             @Override
             public void run() {
@@ -56,13 +59,13 @@ public class RecipeApiClient {
         }, NETWORK_TIMEOUT, TimeUnit.MILLISECONDS);
     }
 
-    private class RetrieveRecipeRunnable implements Runnable{
+    private class RetrieveRecipesRunnable implements Runnable{
 
         private  String query;
         private int pageNumber;
         boolean cancelRequest;
 
-        public RetrieveRecipeRunnable(String query, int pageNumber){
+        public RetrieveRecipesRunnable(String query, int pageNumber){
             this.query = query;
             this.pageNumber = pageNumber;
             cancelRequest = false;
@@ -105,9 +108,12 @@ public class RecipeApiClient {
             Log.d(TAG, "cancelRequest: canceling the search request.");
         }
     }
+
+
+
     public void cancelRequest(){
-        if(mRetrieveRecipeRunnable != null){
-            mRetrieveRecipeRunnable.cancelRequest();
+        if(mRetrieveRecipesRunnable != null){
+            mRetrieveRecipesRunnable.cancelRequest();
         }
     }
 }

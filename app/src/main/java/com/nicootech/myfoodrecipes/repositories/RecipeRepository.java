@@ -37,7 +37,7 @@ public class RecipeRepository {
         }
         mQuery = query;
         mPageNumber = pageNumber;
-        mRecipeApiClient.searchRecipeApi(query,pageNumber);
+        mRecipeApiClient.searchRecipesApi(query,pageNumber);
     }
 
     //that's how we can search the next page
