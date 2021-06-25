@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -81,10 +82,37 @@ public class RecipeActivity extends BaseActivity {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean && !mRecipeViewModel.didRetrievedRecipe()){
                     Log.d(TAG, "onChanged: timed out...");
+                    displayErrorScreen("Error to retrieve data. Check network connection!");
 
                 }
             }
         });
+    }
+    private void displayErrorScreen(String errorMessage){
+        mRecipeTitle.setText("Error to retrieve recipe...");
+        mRecipeRank.setText("");
+        TextView ingredientError = new TextView(this);
+        if(!errorMessage.equals("")){
+            ingredientError.setText(errorMessage);
+        }
+        else{
+            ingredientError.setText("Error");
+        }
+        ingredientError.setTextSize(15);
+        ingredientError.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        mRecipeIngredientsContainer.addView(ingredientError);
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background);
+
+        Glide.with(this)
+                .setDefaultRequestOptions(requestOptions)
+                .load(R.drawable.ic_launcher_background)
+                .into(mRecipeImage);
+        showParent();
+        showProgressBar(false);
+
     }
 
     private void setRecipeProperties(Recipe recipe){
