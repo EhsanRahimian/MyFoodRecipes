@@ -1,4 +1,4 @@
-# MyFoodRecipes This is an educational Android app using MVVM design pattern.
+# MyFoodRecipes is an educational Android app using MVVM design pattern.
 I interact with a REST API from "https://recipesapi.herokuapp.com".
 The app will retrieve information from the website and display it in various view types.
 
